@@ -182,8 +182,8 @@ public class Robot extends TimedRobot {
      *
      * Add white tape to wheel to help determine spin direction.
      */
-    m_feedWheel.setInverted(true);
-    m_launchWheel.setInverted(true);
+    m_feedWheel.setInverted(false);
+    m_launchWheel.setInverted(false);
 
     /*
      * Apply the current limit to the launching mechanism
@@ -358,12 +358,22 @@ public class Robot extends TimedRobot {
      */
     if (m_manipController.getRawButton(6))
     {
-      m_feedWheel.set(FEEDER_OUT_SPEED);
+      m_launchWheel.set(LAUNCHER_SPEED);
     }
     else if(m_manipController.getRawButtonReleased(6))
     {
+      m_launchWheel.set(0);
+    }
+
+    if (m_manipController.getRawButton(4))
+    {
+      m_feedWheel.set(FEEDER_OUT_SPEED);
+    }
+    else if(m_manipController.getRawButtonReleased(4))
+    {
       m_feedWheel.set(0);
     }
+
 
     /*
      * While the button is being held spin both motors to intake note
@@ -371,7 +381,7 @@ public class Robot extends TimedRobot {
     if(m_manipController.getRawButton(5))
     {
       m_launchWheel.set(-LAUNCHER_SPEED);
-      //m_feedWheel.set(FEEDER_IN_SPEED);
+      m_feedWheel.set(FEEDER_IN_SPEED);
     }
     else if(m_manipController.getRawButtonReleased(5))
     {
@@ -449,7 +459,7 @@ public class Robot extends TimedRobot {
      * This was setup with a logitech controller, note there is a switch on the back of the
      * controller that changes how it functions
      */
-    m_drivetrain.arcadeDrive(-m_driverController.getRawAxis(1), -m_driverController.getRawAxis(0), false);
+    m_drivetrain.curvatureDrive(-m_driverController.getRawAxis(1), m_driverController.getRawAxis(0), true);
   }
 }
 
