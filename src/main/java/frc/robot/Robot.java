@@ -37,10 +37,10 @@ public class Robot extends TimedRobot {
    * The rookie kit comes with CIMs which are brushed motors.
    * Use the appropriate other class if you are using different controllers.
    */
-  CANSparkBase leftRear = new CANSparkMax(1, MotorType.kBrushed);
-  CANSparkBase leftFront = new CANSparkMax(2, MotorType.kBrushed);
-  CANSparkBase rightRear = new CANSparkMax(3, MotorType.kBrushed);
-  CANSparkBase rightFront = new CANSparkMax(4, MotorType.kBrushed);
+  CANSparkBase leftRear = new CANSparkMax(11, MotorType.kBrushless);
+  CANSparkBase leftFront = new CANSparkMax(12, MotorType.kBrushless);
+  CANSparkBase rightRear = new CANSparkMax(13, MotorType.kBrushless);
+  CANSparkBase rightFront = new CANSparkMax(14, MotorType.kBrushless);
 
   /*
    * A class provided to control your drivetrain. Different drive styles can be passed to differential drive:
@@ -56,18 +56,18 @@ public class Robot extends TimedRobot {
    *
    * Both of the motors used on the KitBot launcher are CIMs which are brushed motors
    */
-  CANSparkBase m_launchWheel = new CANSparkMax(6, MotorType.kBrushed);
-  CANSparkBase m_feedWheel = new CANSparkMax(5, MotorType.kBrushed);
+  CANSparkBase m_launchWheel = new CANSparkMax(22, MotorType.kBrushless);
+  CANSparkBase m_feedWheel = new CANSparkMax(21, MotorType.kBrushless);
 
   /**
    * Roller Claw motor controller instance.
   */
-  CANSparkBase m_rollerClaw = new CANSparkMax(8, MotorType.kBrushed);
+  // CANSparkBase m_rollerClaw = new CANSparkMax(8, MotorType.kBrushed);
   /**
    * Climber motor controller instance. In the stock Everybot configuration a
    * NEO is used, replace with kBrushed if using a brushed motor.
    */
-  CANSparkBase m_climber = new CANSparkMax(7, MotorType.kBrushless);
+  // CANSparkBase m_climber = new CANSparkMax(7, MotorType.kBrushless);
 
     /**
    * The starter code uses the most generic joystick class.
@@ -194,19 +194,19 @@ public class Robot extends TimedRobot {
     /*
      * Inverting and current limiting for roller claw and climber
      */
-    m_rollerClaw.setInverted(false);
+    /* m_rollerClaw.setInverted(false);
     m_climber.setInverted(false);
 
     m_rollerClaw.setSmartCurrentLimit(60);
-    m_climber.setSmartCurrentLimit(60);
+    m_climber.setSmartCurrentLimit(60); */
 
     /*
      * Motors can be set to idle in brake or coast mode.
      * 
      * Brake mode is best for these mechanisms
      */
-    m_rollerClaw.setIdleMode(IdleMode.kBrake);
-    m_climber.setIdleMode(IdleMode.kBrake);
+    /* m_rollerClaw.setIdleMode(IdleMode.kBrake);
+    m_climber.setIdleMode(IdleMode.kBrake);*/
   }
 
   /**
@@ -221,7 +221,7 @@ public class Robot extends TimedRobot {
 
   /*
    * Auto constants, change values below in autonomousInit()for different autonomous behaviour
-   *
+   *0
    * A delayed action starts X seconds into the autonomous period
    *
    * A time action will perform an action for X amount of seconds
@@ -371,7 +371,7 @@ public class Robot extends TimedRobot {
     if(m_manipController.getRawButton(5))
     {
       m_launchWheel.set(-LAUNCHER_SPEED);
-      m_feedWheel.set(FEEDER_IN_SPEED);
+      //m_feedWheel.set(FEEDER_IN_SPEED);
     }
     else if(m_manipController.getRawButtonReleased(5))
     {
@@ -404,7 +404,7 @@ public class Robot extends TimedRobot {
      * It may be best to have the roller claw passively on throughout the match to 
      * better retain notes but we did not test this
      */ 
-    if(m_manipController.getRawButton(3))
+    /* if(m_manipController.getRawButton(3))
     {
       m_rollerClaw.set(CLAW_OUTPUT_POWER);
     }
@@ -415,14 +415,16 @@ public class Robot extends TimedRobot {
     else
     {
       m_rollerClaw.set(0);
-    }
+    } */
 
     /**
      * POV is the D-PAD (directional pad) on your controller, 0 == UP and 180 == DOWN
      * 
      * After a match re-enable your robot and unspool the climb
      */
-    if(m_manipController.getPOV() == 0)
+    
+    /**
+     if(m_manipController.getPOV() == 0)
     {
       m_climber.set(1);
     }
@@ -434,6 +436,7 @@ public class Robot extends TimedRobot {
     {
       m_climber.set(0);
     }
+    **/
   
     /*
      * Negative signs are here because the values from the analog sticks are backwards
